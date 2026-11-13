@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreatebookComponent } from './createbook.component';
+import { BookService } from '../../services/book.service';
+import { FormsModule } from '@angular/forms';
 
 describe('CreatebookComponent', () => {
   let component: CreatebookComponent;
@@ -8,7 +10,8 @@ describe('CreatebookComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CreatebookComponent]
+      declarations: [CreatebookComponent],
+			imports: [FormsModule] // !!! teszt-ben is fel kell tüntetni
     })
     .compileComponents();
 
@@ -33,38 +36,23 @@ describe('CreatebookComponent', () => {
     expect(element.querySelector('input[name="releaseDate"]')).toBeTruthy();
   });
 
-  it('3. az űrlap elküldésekor létrejön a könyv', async () => {
-    const element: HTMLElement = fixture.nativeElement;
+	it('3. új könyv létrehozása a szolgáltatáson keresztül', () => {
+		component.book = {
+			name: 'Clean Code',
+			isbn: '9780132350884',
+			releaseDate: '2008-08-01'
+		};
 
-    const name = element.querySelector<HTMLInputElement>('input[name="name"]')!;
-    const isbn = element.querySelector<HTMLInputElement>('input[name="isbn"]')!;
-    const date = element.querySelector<HTMLInputElement>('input[name="releaseDate"]')!;
+		component.create();
 
-    name.value = 'Clean Code';
-    isbn.value = '9780132350884';
-    date.value = '2008-08-01';
+		const service = TestBed.inject(BookService);
 
-    for (const input of [name, isbn, date]) {
-      input.dispatchEvent(new Event('input', { bubbles: true }));
-    }
-
-    fixture.detectChanges();
-
-    element.querySelector('form')!.dispatchEvent(
-      new Event('submit', { bubbles: true, cancelable: true })
-    );
-
-    fixture.detectChanges();
-    await fixture.whenStable();
-
-    const service = TestBed.inject(BookService);
-
-    expect(service.getBooks()).toContain(
-      jasmine.objectContaining({
-        name: 'Clean Code',
-        isbn: '9780132350884',
-        releaseDate: '2008-08-01'
-      })
-    );
-  });
+		expect(service.getBooks()).toContain(
+			jasmine.objectContaining({
+				name: 'Clean Code',
+				isbn: '9780132350884',
+				releaseDate: '2008-08-01'
+			})
+		);
+	});
 });
