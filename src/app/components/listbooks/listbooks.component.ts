@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { BookService } from '../../services/book.service';
 
 @Component({
   selector: 'app-listbooks',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './listbooks.component.scss'
 })
 export class ListbooksComponent {
+	public service: BookService = inject(BookService)
+
 
 }
