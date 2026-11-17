@@ -18,9 +18,9 @@ describe('ListbooksComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  // it('should create', () => {
+  //   expect(component).toBeTruthy();
+  // });
 
   it('1. a komponens létrejön', () => {
     expect(component).toBeTruthy();

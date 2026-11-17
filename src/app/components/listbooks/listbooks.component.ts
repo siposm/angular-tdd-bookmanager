@@ -7,7 +7,6 @@ import { BookService } from '../../services/book.service';
   styleUrl: './listbooks.component.scss'
 })
 export class ListbooksComponent {
-	public service: BookService = inject(BookService)
-
-
+	// public service: BookService = inject(BookService)
+	constructor(public service: BookService){}
 }

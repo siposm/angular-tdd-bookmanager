@@ -1,15 +1,21 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { CreatebookComponent } from './components/createbook/createbook.component';
+import { ListbooksComponent } from './components/listbooks/listbooks.component';
+import { FormsModule } from '@angular/forms';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+				FormsModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+				CreatebookComponent,
+				ListbooksComponent,
       ],
     }).compileComponents();
   });
@@ -20,10 +26,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'bookmanager'`, () => {
+  it(`should have as title 'alma'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('bookmanager');
+    expect(app.title).toEqual('alma');
   });
 
   it('should render title', () => {
